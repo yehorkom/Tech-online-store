@@ -19,7 +19,7 @@ public class ProductDaoImp implements ProductDao {
 	}
 
 	@Override
-	public List<Product> getProducts() {
+	public List<Product> getAllProducts() {
 		return entityManager.createQuery("SELECT p FROM products p", Product.class).getResultList();
 	}
 

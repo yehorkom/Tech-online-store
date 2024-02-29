@@ -2,7 +2,6 @@ package com.techonlinestore.mapper;
 
 import com.techonlinestore.dto.ProductDto;
 import com.techonlinestore.entity.Product;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

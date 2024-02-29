@@ -23,7 +23,7 @@ public class ProductServiceImp implements ProductService {
 
 	@Override
 	public List<ProductDto> getAllProducts() {
-		return productDao.getProducts()
+		return productDao.getAllProducts()
 			.stream()
 			.map(ProductMapper::toProductDto)
 			.toList();

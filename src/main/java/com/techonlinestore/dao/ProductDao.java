@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductDao {
 	Product getProductById(int productId);
-	List<Product> getProducts();
+	List<Product> getAllProducts();
 	ProductDto createProduct(ProductDto productDto);
 //	List<Product> findProductsByBrand(BrandDto brandDto);
 //	List<Product> findProductsByType(TypeDto typeDto);
