@@ -12,12 +12,15 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "brands")
-public class Brand {
+@Entity(name = "admins")
+public class Admin {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int brandId;
+	private int adminId;
 
-	@Column(name = "brand_name", nullable=false)
-	private String brandName;
+	@Column(nullable=false)
+	private String username;
+
+	@Column(nullable=false)
+	private String password;
 }

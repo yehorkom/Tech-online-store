@@ -1,22 +1,28 @@
-CREATE TABLE Brands (
-                        BrandID SERIAL PRIMARY KEY,
-                        Name TEXT NOT NULL
+CREATE TABLE brands (
+                        brand_id SERIAL PRIMARY KEY,
+                        brand_name TEXT NOT NULL
 );
 
-CREATE TABLE Types (
-                       TypeID SERIAL PRIMARY KEY,
-                       Name TEXT NOT NULL
+CREATE TABLE types (
+                       type_id SERIAL PRIMARY KEY,
+                       type_name TEXT NOT NULL
 );
 
-CREATE TABLE Products (
-                          ProductID SERIAL PRIMARY KEY,
-                          Model TEXT NOT NULL,
-                          Description TEXT,
-                          Price NUMERIC CHECK (Price > 0),
-                          Availability BOOLEAN,
-                          Image TEXT,
-                          BrandID INTEGER,
-                          TypeID INTEGER,
-                          FOREIGN KEY (BrandID) REFERENCES Brands(BrandID),
-                          FOREIGN KEY (TypeID) REFERENCES Types(TypeID)
+CREATE TABLE products (
+                          product_id SERIAL PRIMARY KEY,
+                          model TEXT NOT NULL,
+                          description TEXT,
+                          price NUMERIC CHECK (Price > 0),
+                          availability BOOLEAN,
+                          image TEXT,
+                          brand_id INTEGER,
+                          type_id INTEGER,
+                          FOREIGN KEY (brand_id) REFERENCES brands(brand_id),
+                          FOREIGN KEY (type_id) REFERENCES types(type_id)
+);
+
+CREATE TABLE admins (
+                        admin_id SERIAL PRIMARY KEY,
+                        username TEXT NOT NULL,
+                        password TEXT NOT NULL
 );
