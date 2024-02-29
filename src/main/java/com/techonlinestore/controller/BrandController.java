@@ -53,11 +53,30 @@ public class BrandController {
 		if (createdBrand == null) {
 			return ResponseEntity.badRequest().body("Unable to create brand. Check your request.");
 		}
+
 		URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()
 			.path("/{brandId}")
 			.buildAndExpand(brandMapper.toLastBrand(createdBrand).getBrandId()).toUri();
 
 		return ResponseEntity.created(location).build();
+	}
+
+	@PutMapping("/{brandId}")
+	public ResponseEntity<BrandDto> updateBrand(@PathVariable("brandId") int brandId, @RequestBody BrandDto brandDto) {
+		var updatedBrand = brandService.updateBrand(brandId,brandDto);
+
+		if (updatedBrand != null) {
+			return new ResponseEntity<>(brandDto, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@DeleteMapping("/{brandId}")
+	public ResponseEntity<Void> deleteBrand(@PathVariable("brandId") int brandId) {
+		brandService.deleteBrand(brandId);
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

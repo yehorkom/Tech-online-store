@@ -34,7 +34,7 @@ public class BrandDaoImp implements BrandDao {
 
 	@Override
 	public void updateBrand(Brand brand) {
-
+		entityManager.merge(brand);
 	}
 
 	@Override

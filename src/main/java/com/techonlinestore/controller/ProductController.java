@@ -49,4 +49,20 @@ public class ProductController {
 
 		return ResponseEntity.created(location).build();
 	}
+	@PutMapping("/{productId}")
+	public ResponseEntity<ProductDto> updateProduct(@PathVariable("productId") int productId, @RequestBody ProductDto productDto) {
+		var updatedProduct = productService.updateProduct(productId, productDto);
+
+		if (updatedProduct != null) {
+			return new ResponseEntity<>(productDto, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	@DeleteMapping("/{productId}")
+	public ResponseEntity<Void> deleteProduct(@PathVariable("productId") int productId) {
+		productService.deleteProduct(productId);
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 }

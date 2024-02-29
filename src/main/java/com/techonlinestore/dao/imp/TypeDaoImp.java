@@ -36,7 +36,7 @@ public class TypeDaoImp implements TypeDao {
 
 	@Override
 	public void updateType(Type type) {
-		// Реализуйте логику обновления типа
+		entityManager.merge(type);
 	}
 
 	@Override

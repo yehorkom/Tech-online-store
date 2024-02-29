@@ -40,7 +40,15 @@ public class BrandServiceImp implements BrandService {
 	@Override
 	@Transactional
 	public BrandDto updateBrand(int brandId, BrandDto brandDto) {
-		// Реализуйте логику обновления бренда
+		Brand existingBrand = brandDao.getBrandById(brandId);
+
+		if (existingBrand != null) {
+			Brand updatedBrand = BrandMapper.toBrand(brandDto);
+			updatedBrand.setBrandId(brandId);
+			brandDao.updateBrand(updatedBrand);
+			return brandDto;
+		}
+
 		return null;
 	}
 

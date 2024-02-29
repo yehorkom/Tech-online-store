@@ -57,4 +57,22 @@ public class TypeController {
 
 		return ResponseEntity.created(location).build();
 	}
+
+	@PutMapping("/{typeId}")
+	public ResponseEntity<TypeDto> updateType(@PathVariable("typeId") int typeId, @RequestBody TypeDto typeDto) {
+		var updatedType = typeService.updateType(typeId, typeDto);
+
+		if (updatedType != null) {
+			return new ResponseEntity<>(typeDto, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@DeleteMapping("/{typeId}")
+	public ResponseEntity<Void> deleteBrand(@PathVariable("typeId") int typeId) {
+		typeService.deleteType(typeId);
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 }

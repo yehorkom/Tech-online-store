@@ -38,6 +38,15 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	@Transactional
 	public ProductDto updateProduct(int productId, ProductDto productDto) {
+		Product existingProduct = productDao.getProductById(productId);
+
+		if (existingProduct != null) {
+			Product updatedProduct = ProductMapper.toProduct(productDto);
+			updatedProduct.setProductId(productId);
+			productDao.updateProduct(updatedProduct);
+			return productDto;
+		}
+
 		return null;
 	}
 

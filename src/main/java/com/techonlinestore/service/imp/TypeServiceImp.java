@@ -40,7 +40,15 @@ public class TypeServiceImp implements TypeService {
 	@Override
 	@Transactional
 	public TypeDto updateType(int typeId, TypeDto typeDto) {
-		// Реализуйте логику обновления типа
+		Type existingType = typeDao.getTypeById(typeId);
+
+		if (existingType != null) {
+			Type updatedType = TypeMapper.toType(typeDto);
+			updatedType.setTypeId(typeId);
+			typeDao.updateType(updatedType);
+			return typeDto;
+		}
+
 		return null;
 	}
 

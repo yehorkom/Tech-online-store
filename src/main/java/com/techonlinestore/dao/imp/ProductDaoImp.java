@@ -41,7 +41,7 @@ public class ProductDaoImp implements ProductDao {
 
 	@Override
 	public void updateProduct(Product product) {
-
+		entityManager.merge(product);
 	}
 
 	@Override
