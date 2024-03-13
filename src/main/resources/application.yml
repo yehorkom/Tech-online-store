@@ -4,9 +4,9 @@ spring:
     username: postgres
     password: 1423
     driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: none
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
 #spring:
 #  datasource:
 #    driver-class-name: org.postgresql.Driver

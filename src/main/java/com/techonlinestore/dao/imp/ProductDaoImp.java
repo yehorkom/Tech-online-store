@@ -25,15 +25,14 @@ public class ProductDaoImp implements ProductDao {
 
 	@Override
 	public ProductDto createProduct(ProductDto productDto) {
-		Product product = Product.builder()
-			.model(productDto.getModel())
-			.description(productDto.getDescription())
-			.price(productDto.getPrice())
-			.availability(productDto.isAvailability())
-			.image(productDto.getImage())
-			.brandId(productDto.getBrandId())
-			.typeId(productDto.getTypeId())
-			.build();
+		Product product = new Product();
+		product.setModel(productDto.getModel());
+		product.setDescription(productDto.getDescription());
+		product.setPrice(productDto.getPrice());
+		product.setAvailability(productDto.isAvailability());
+		product.setImage(productDto.getImage());
+		product.setBrandId(productDto.getBrandId());
+		product.setTypeId(productDto.getTypeId());
 		entityManager.persist(product);
 
 		return productDto;

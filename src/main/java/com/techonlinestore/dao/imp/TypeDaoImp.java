@@ -26,9 +26,8 @@ public class TypeDaoImp implements TypeDao {
 
 	@Override
 	public TypeDto createType(TypeDto typeDto) {
-		Type type = Type.builder()
-			.typeName(typeDto.getTypeName())
-			.build();
+		Type type = new Type();
+		type.setTypeName(typeDto.getTypeName());
 		entityManager.persist(type);
 
 		return typeDto;

@@ -4,6 +4,7 @@ import com.techonlinestore.dao.BrandDao;
 import com.techonlinestore.dto.BrandDto;
 import com.techonlinestore.entity.Brand;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -24,9 +25,8 @@ public class BrandDaoImp implements BrandDao {
 
 	@Override
 	public BrandDto createBrand(BrandDto brandDto) {
-		Brand brand = Brand.builder()
-			.brandName(brandDto.getBrandName())
-			.build();
+		Brand brand = new Brand();
+		brand.setBrandName(brandDto.getBrandName());
 		entityManager.persist(brand);
 
 		return brandDto;
@@ -39,10 +39,14 @@ public class BrandDaoImp implements BrandDao {
 
 	@Override
 	public void deleteBrand(int brandId) {
-		Brand brand = entityManager.find(Brand.class, brandId);
+		Brand existingBrand = entityManager.find(Brand.class, brandId);
 
-		if (brand != null){
-			entityManager.remove(brand);
+		if (existingBrand != null){
+			Query query = entityManager.createQuery("DELETE FROM products p WHERE p.brandId = :existingBrand");
+			query.setParameter("existingBrand", existingBrand);
+			query.executeUpdate();
+
+			entityManager.remove(existingBrand);
 		}
 	}
 }
