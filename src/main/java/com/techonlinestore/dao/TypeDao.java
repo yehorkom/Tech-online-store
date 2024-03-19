@@ -8,7 +8,7 @@ import java.util.List;
 public interface TypeDao {
 	Type getTypeById(int typeId);
 
-	List<Type> getTypes();
+	List<Type> getAllTypes();
 
 	TypeDto createType(TypeDto typeDto);
 

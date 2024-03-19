@@ -25,7 +25,7 @@ public class TypeServiceImp implements TypeService {
 
 	@Override
 	public List<TypeDto> getAllTypes() {
-		return typeDao.getTypes()
+		return typeDao.getAllTypes()
 			.stream()
 			.map(TypeMapper::toTypeDto)
 			.toList();

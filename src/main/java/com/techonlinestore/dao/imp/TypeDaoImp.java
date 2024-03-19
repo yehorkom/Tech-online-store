@@ -20,7 +20,7 @@ public class TypeDaoImp implements TypeDao {
 	}
 
 	@Override
-	public List<Type> getTypes() {
+	public List<Type> getAllTypes() {
 		return entityManager.createQuery("SELECT t FROM types t", Type.class).getResultList();
 	}
 

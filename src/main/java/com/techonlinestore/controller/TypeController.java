@@ -2,19 +2,12 @@ package com.techonlinestore.controller;
 import com.techonlinestore.dto.TypeDto;
 import com.techonlinestore.mapper.TypeMapper;
 import com.techonlinestore.service.TypeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -28,28 +21,28 @@ public class TypeController {
 	private final TypeMapper typeMapper;
 
 	@GetMapping("/{typeId}")
-	public ResponseEntity<TypeDto> getTypeById(@PathVariable("typeId") int typeId){
+	public TypeDto getTypeById(@PathVariable("typeId") int typeId){
 		TypeDto typeDto = typeService.getTypeById(typeId);
 
 		if (typeDto != null) {
-			return new ResponseEntity<>(typeDto, HttpStatus.OK);
+			return typeDto;
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Type not found");
 		}
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<List<TypeDto>> getTypes() {
-		List<TypeDto> types = typeService.getAllTypes();
-		return new ResponseEntity<>(types, HttpStatus.OK);
+	public List<TypeDto> getAllTypes() {
+		return typeService.getAllTypes();
 	}
 
 	@PostMapping
-	public ResponseEntity<Object> createType(@RequestBody TypeDto typeDto) {
+	public ResponseEntity<Object> createType(@Valid @RequestBody TypeDto typeDto) {
 		var createdType = typeService.createType(typeDto);
 		if (createdType == null){
 			return ResponseEntity.badRequest().body("Unable to create type. Check your request.");
 		}
+
 		URI location = ServletUriComponentsBuilder
 			.fromCurrentRequest()
 			.path("/{typeId}")
@@ -59,20 +52,19 @@ public class TypeController {
 	}
 
 	@PutMapping("/{typeId}")
-	public ResponseEntity<TypeDto> updateType(@PathVariable("typeId") int typeId, @RequestBody TypeDto typeDto) {
-		var updatedType = typeService.updateType(typeId, typeDto);
+	public TypeDto updateType(@PathVariable("typeId") int typeId, @RequestBody TypeDto typeDto) {
+		TypeDto updatedType = typeService.updateType(typeId, typeDto);
 
 		if (updatedType != null) {
-			return new ResponseEntity<>(typeDto, HttpStatus.OK);
+			return typeDto;
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
 		}
 	}
 
 	@DeleteMapping("/{typeId}")
-	public ResponseEntity<Void> deleteBrand(@PathVariable("typeId") int typeId) {
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteBrand(@PathVariable("typeId") int typeId) {
 		typeService.deleteType(typeId);
-
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
