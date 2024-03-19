@@ -4,7 +4,13 @@ spring:
     username: postgres
     password: 1423
     driver-class-name: org.postgresql.Driver
-#  jpa:
+server:
+  error:
+    include-message: always
+
+
+
+  #  jpa:
 #    hibernate:
 #      ddl-auto: none
 #spring:

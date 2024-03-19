@@ -3,10 +3,12 @@ package com.techonlinestore.controller;
 import com.techonlinestore.dto.ProductDto;
 import com.techonlinestore.mapper.ProductMapper;
 import com.techonlinestore.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -19,25 +21,24 @@ public class ProductController {
 	private final ProductService productService;
 	private final ProductMapper productMapper;
 
-	@GetMapping("/{productId}")
-	public ResponseEntity<ProductDto> getProductById(@PathVariable("productId") int productId){
-		ProductDto productDto = productService.getProductById(productId);
 
+	@GetMapping("/{productId}")
+	public ProductDto getProductById(@PathVariable("productId") int productId){
+		ProductDto productDto = productService.getProductById(productId);
 		if (productDto != null) {
-			return new ResponseEntity<>(productDto, HttpStatus.OK);
+			return productDto;
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
 		}
 	}
 
 	@GetMapping("/all")
-	public ResponseEntity<List<ProductDto>> getAllProducts() {
-		List<ProductDto> products = productService.getAllProducts();
-		return new ResponseEntity<>(products, HttpStatus.OK);
+	public List<ProductDto> getAllProducts() {
+		return productService.getAllProducts();
 	}
 
 	@PostMapping
-	public ResponseEntity<Object> createProduct(@RequestBody ProductDto productDto) {
+	public ResponseEntity<Object> createProduct(@Valid @RequestBody ProductDto productDto) {
 		var createdProduct = productService.createProduct(productDto);
 		if (createdProduct == null){
 			return ResponseEntity.badRequest().body("Unable to create product. Check your request.");
@@ -49,20 +50,26 @@ public class ProductController {
 
 		return ResponseEntity.created(location).build();
 	}
-	@PutMapping("/{productId}")
-	public ResponseEntity<ProductDto> updateProduct(@PathVariable("productId") int productId, @RequestBody ProductDto productDto) {
-		var updatedProduct = productService.updateProduct(productId, productDto);
 
+	@PutMapping("/{productId}")
+	public ProductDto updateProduct(@PathVariable("productId") int productId, @Valid @RequestBody ProductDto productDto) {
+		ProductDto updatedProduct = productService.updateProduct(productId, productDto);
 		if (updatedProduct != null) {
-			return new ResponseEntity<>(productDto, HttpStatus.OK);
+			return updatedProduct;
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
 		}
 	}
-	@DeleteMapping("/{productId}")
-	public ResponseEntity<Void> deleteProduct(@PathVariable("productId") int productId) {
-		productService.deleteProduct(productId);
 
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	@DeleteMapping("/{productId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteProduct(@PathVariable("productId") int productId) {
+		productService.deleteProduct(productId);
 	}
+
+//	@ExceptionHandler(ResponseStatusException.class)
+//	public ResponseEntity<Object> handleExceptions(ResponseStatusException ex) {
+//		// Здесь можно добавить логирование
+//		return new ResponseEntity<>(ex.getMessage(), ex.getStatusCode());
+//	}
 }

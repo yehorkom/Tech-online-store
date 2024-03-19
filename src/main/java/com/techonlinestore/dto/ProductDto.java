@@ -1,6 +1,7 @@
 package com.techonlinestore.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,16 +14,16 @@ import lombok.NoArgsConstructor;
 public class ProductDto {
 	@NotEmpty(message = "Model name cannot be empty")
 	private String model;
-
+	@NotEmpty(message = "Description cannot be empty")
 	private String description;
-
+	@NotNull(message = "Price cannot be empty")
 	private double price;
-
+	@NotNull
 	private boolean availability;
 
 	private String image;
-
+	@NotNull
 	private int brandId;
-
+	@NotNull
 	private int typeId;
 }
