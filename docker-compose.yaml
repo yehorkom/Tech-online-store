@@ -1,13 +1,13 @@
-version: '3.3'
-services:
-  db:
-    image: 'postgres:15'
-    container_name: techStore
-    ports:
-      - "5432:5432"
-    expose:
-      - '5432'
-    environment:
-      POSTGRES_USER: yehor
-      POSTGRES_PASSWORD: 1423
-      POSTGRES_DB: techStore
+#version: '3.3'
+#services:
+#  db:
+#    image: 'postgres:15'
+#    container_name: techStore
+#    ports:
+#      - "5432:5432"
+#    expose:
+#      - '5432'
+#    environment:
+#      POSTGRES_USER: yehor
+#      POSTGRES_PASSWORD: 1423
+#      POSTGRES_DB: techStore
