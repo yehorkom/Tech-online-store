@@ -38,7 +38,7 @@ public class ProductMapper {
 			new BeanPropertyRowMapper<>(Product.class));
 
 		Product product = new Product();
-		product.setProductId(lastProduct.getLast().getProductId());
+		product.setProductId(lastProduct.get(lastProduct.size() - 1).getProductId());
 		product.setModel(productDto.getModel());
 		product.setDescription(productDto.getDescription());
 		product.setAvailability(productDto.isAvailability());
