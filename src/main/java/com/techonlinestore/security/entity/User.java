@@ -1,10 +1,11 @@
 package com.techonlinestore.security.entity;
 
 import com.techonlinestore.security.enums.Role;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,15 +14,26 @@ import java.util.Collection;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Entity(name = "admins")
 public class User implements UserDetails {
-	private String email;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int adminId;
+
+	@Column(nullable=false)
+	private String username;
+
+	@Column(nullable=false)
 	private String password;
-	private String firstName;
-	private String lastName;
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
+
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -31,7 +43,7 @@ public class User implements UserDetails {
 	@Override
 	public String getUsername() {
 		// email in our case
-		return email;
+		return username;
 	}
 
 	@Override

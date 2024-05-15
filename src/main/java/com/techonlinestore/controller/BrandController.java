@@ -42,6 +42,7 @@ public class BrandController {
 	@PostMapping
 	public ResponseEntity<Object> createBrand(@Valid @RequestBody BrandDto brandDto) {
 		var createdBrand = brandService.createBrand(brandDto);
+
 		if (createdBrand == null) {
 			return ResponseEntity.badRequest().body("Unable to create brand. Check your request.");
 		}

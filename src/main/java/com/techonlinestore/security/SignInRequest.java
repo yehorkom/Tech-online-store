@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class SignInRequest {
-	private String email;
+	private String username;
 	private String password;
 }

@@ -22,11 +22,8 @@ public class AuthenticationService {
 	private final JwtUtil jwtUtil;
 
 	public AuthResponse signUp(SignUpRequest request) {
-		var user = new User(request.getEmail(),
-			passwordEncoder.encode(request.getPassword()),
-			request.getFirstName(),
-			request.getLastName(),
-			Role.USER);
+		var user = new User(request.getUsername(),
+			passwordEncoder.encode(request.getPassword()));
 		userRepository.save(user);
 		var jwt = jwtUtil.generateToken(user);
 
@@ -35,8 +32,8 @@ public class AuthenticationService {
 
 	public AuthResponse signIn(SignInRequest request) {
 		authenticationManager.authenticate(
-			new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-		var user = userRepository.findUser(request.getEmail())
+			new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+		var user = userRepository.findByUsername(request.getUsername())
 			.orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
 		var jwt = jwtUtil.generateToken(user);
 

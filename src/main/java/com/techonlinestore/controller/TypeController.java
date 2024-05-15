@@ -39,6 +39,7 @@ public class TypeController {
 	@PostMapping
 	public ResponseEntity<Object> createType(@Valid @RequestBody TypeDto typeDto) {
 		var createdType = typeService.createType(typeDto);
+
 		if (createdType == null){
 			return ResponseEntity.badRequest().body("Unable to create type. Check your request.");
 		}
