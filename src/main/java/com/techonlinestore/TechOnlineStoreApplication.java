@@ -9,5 +9,4 @@ public class TechOnlineStoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TechOnlineStoreApplication.class, args);
 	}
-
 }

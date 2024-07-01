@@ -9,8 +9,6 @@ public interface ProductDao {
 	Product getProductById(int productId);
 	List<Product> getAllProducts();
 	ProductDto createProduct(ProductDto productDto);
-//	List<Product> findProductsByBrand(BrandDto brandDto);
-//	List<Product> findProductsByType(TypeDto typeDto);
 	void updateProduct(Product product);
 	void deleteProduct(int productId);
 }
