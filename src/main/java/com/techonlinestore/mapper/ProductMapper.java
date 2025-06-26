@@ -20,7 +20,8 @@ public class ProductMapper {
 
 		Product product = new Product();
 		product.setModel(productDto.getModel());
-		product.setDescription(productDto.getDescription());
+		product.setDescriptionUA(productDto.getDescriptionUA());
+		product.setDescriptionPL(productDto.getDescriptionPL());
 		product.setAvailability(productDto.isAvailability());
 		product.setPrice(productDto.getPrice());
 		product.setImage(productDto.getImage());
@@ -38,9 +39,10 @@ public class ProductMapper {
 			new BeanPropertyRowMapper<>(Product.class));
 
 		Product product = new Product();
-		product.setProductId(lastProduct.getLast().getProductId());
+		product.setProductId(lastProduct.get(lastProduct.size() - 1).getProductId());
 		product.setModel(productDto.getModel());
-		product.setDescription(productDto.getDescription());
+		product.setDescriptionUA(productDto.getDescriptionUA());
+		product.setDescriptionPL(productDto.getDescriptionPL());
 		product.setAvailability(productDto.isAvailability());
 		product.setPrice(productDto.getPrice());
 		product.setImage(productDto.getImage());
@@ -57,7 +59,8 @@ public class ProductMapper {
 
 		ProductDto productDto = new ProductDto();
 		productDto.setModel(product.getModel());
-		productDto.setDescription(product.getDescription());
+		productDto.setDescriptionUA(product.getDescriptionUA());
+		productDto.setDescriptionPL(product.getDescriptionPL());
 		productDto.setAvailability(product.isAvailability());
 		productDto.setPrice(product.getPrice());
 		productDto.setImage(product.getImage());

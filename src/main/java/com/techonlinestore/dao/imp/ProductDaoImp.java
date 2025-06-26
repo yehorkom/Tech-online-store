@@ -27,7 +27,8 @@ public class ProductDaoImp implements ProductDao {
 	public ProductDto createProduct(ProductDto productDto) {
 		Product product = new Product();
 		product.setModel(productDto.getModel());
-		product.setDescription(productDto.getDescription());
+		product.setDescriptionUA(productDto.getDescriptionUA());
+		product.setDescriptionPL(productDto.getDescriptionPL());
 		product.setPrice(productDto.getPrice());
 		product.setAvailability(productDto.isAvailability());
 		product.setImage(productDto.getImage());

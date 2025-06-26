@@ -1,6 +1,5 @@
 package com.techonlinestore.entity;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,8 +25,11 @@ public class Product {
 	@Column(nullable=false)
 	private String model;
 
-	@Column(nullable=false)
-	private String description;
+	@Column(name ="description_ua",nullable=false)
+	private String descriptionUA;
+
+	@Column(name ="description_pl", nullable=false)
+	private String descriptionPL;
 
 	@Column(nullable=false)
 	private double price;

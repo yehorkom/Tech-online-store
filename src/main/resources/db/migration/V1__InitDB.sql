@@ -11,7 +11,8 @@ CREATE TABLE types (
 CREATE TABLE products (
                           product_id SERIAL PRIMARY KEY,
                           model TEXT NOT NULL,
-                          description TEXT,
+                          description_ua TEXT,
+                          description_pl TEXT,
                           price NUMERIC CHECK (Price > 0),
                           availability BOOLEAN,
                           image TEXT,
@@ -24,5 +25,6 @@ CREATE TABLE products (
 CREATE TABLE admins (
                         admin_id SERIAL PRIMARY KEY,
                         username TEXT NOT NULL,
-                        password TEXT NOT NULL
+                        password TEXT NOT NULL,
+                        role TEXT
 );

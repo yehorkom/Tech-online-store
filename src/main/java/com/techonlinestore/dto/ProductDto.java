@@ -15,7 +15,9 @@ public class ProductDto {
 	@NotEmpty(message = "Model name cannot be empty")
 	private String model;
 	@NotEmpty(message = "Description cannot be empty")
-	private String description;
+	private String descriptionUA;
+	@NotEmpty(message = "Description cannot be empty")
+	private String descriptionPL;
 	@NotNull(message = "Price cannot be empty")
 	private double price;
 	@NotNull

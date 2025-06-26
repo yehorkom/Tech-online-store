@@ -25,6 +25,7 @@ public class ProductController {
 	@GetMapping("/{productId}")
 	public ProductDto getProductById(@PathVariable("productId") int productId){
 		ProductDto productDto = productService.getProductById(productId);
+
 		if (productDto != null) {
 			return productDto;
 		} else {
@@ -40,6 +41,7 @@ public class ProductController {
 	@PostMapping
 	public ResponseEntity<Object> createProduct(@Valid @RequestBody ProductDto productDto) {
 		var createdProduct = productService.createProduct(productDto);
+
 		if (createdProduct == null){
 			return ResponseEntity.badRequest().body("Unable to create product. Check your request.");
 		}
@@ -54,6 +56,7 @@ public class ProductController {
 	@PutMapping("/{productId}")
 	public ProductDto updateProduct(@PathVariable("productId") int productId, @Valid @RequestBody ProductDto productDto) {
 		ProductDto updatedProduct = productService.updateProduct(productId, productDto);
+
 		if (updatedProduct != null) {
 			return updatedProduct;
 		} else {
@@ -66,10 +69,4 @@ public class ProductController {
 	public void deleteProduct(@PathVariable("productId") int productId) {
 		productService.deleteProduct(productId);
 	}
-
-//	@ExceptionHandler(ResponseStatusException.class)
-//	public ResponseEntity<Object> handleExceptions(ResponseStatusException ex) {
-//		// Здесь можно добавить логирование
-//		return new ResponseEntity<>(ex.getMessage(), ex.getStatusCode());
-//	}
 }
