@@ -13,6 +13,7 @@ server:
   error:
     include-message: always
 
+
   #  jpa:
 #    hibernate:
 #      ddl-auto: none
