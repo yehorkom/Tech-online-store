@@ -33,14 +33,15 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf(AbstractHttpConfigurer::disable)
-			.cors(AbstractHttpConfigurer::disable)
+		http.csrf().disable()
+			.cors().disable()
 			.authorizeHttpRequests(authRequests -> {
-				authRequests.requestMatchers("/auth/**",
-					"/api/product/all", "/api/product/{productId}",
-//					"/api/brand/all",
-					"/api/brand/{brandId}",
-					"/api/type/all", "/api/type/{typeId}").permitAll();
+				authRequests
+					.requestMatchers("/auth/**",
+						"/api/product/all", "/api/product/{productId}",
+						"/api/brand/{brandId}",
+						"/api/type/all", "/api/type/{typeId}")
+					.permitAll();
 				authRequests.anyRequest().authenticated();
 			})
 			.sessionManagement(sessionManager ->
